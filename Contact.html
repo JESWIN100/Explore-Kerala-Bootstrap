@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="script.js"></script>
+    <style>
+        /* Custom CSS for additional styling */
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            font-family: Arial, sans-serif; /* Set a more readable font */
+        }
+        .full-height {
+            height: 100vh; /* Full height for the section */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .text-brand {
+            color: #007bff; /* Brand color */
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 5px; /* Add border radius for a smoother look */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow */
+            padding: 10px;
+        }
+        .btn-brand {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-brand:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* More shadow on hover */
+        }
+        .form-group {
+            margin-bottom: 1.5rem; /* Increase spacing between form groups */
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #0056b3; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <section id="contact" class="full-height px-lg-5">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h6 class="text-brand">CONTACT</h6>
+                    <h1>Interested in Watching Together? Let's Talk</h1>
+                </div>
+                <div class="col-lg-8 pb-4">
+                    <form id="submit-form" name="myForm" action="#" class="row g-lg-3 gy-3" onsubmit="handleSubmit(event)">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" id="fullname" placeholder="Enter Your Name" name="name" >
+                            <span id="fullnameError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="email" class="form-control" id="email" placeholder="Enter Your Email" name="email" >
+                            <span id="emailError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-12">
+                            <input type="text" class="form-control" id="subject" placeholder="Enter Your Subject" name="subject" >
+                            <span id="subjectError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-12">
+                            <textarea rows="4" class="form-control" id="comment" placeholder="Enter Your Message" name="message" ></textarea>
+                            <span id="commentError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-12 d-grid">
+                            <button type="submit" class="btn btn-brand">Contact Me</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Your Company. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and other scripts -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- Your custom JavaScript goes here -->
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            const fullname = document.getElementById('fullname').value;
+            const fullnameError = document.getElementById('fullnameError');
+            const fullnamePattern = /^[a-zA-Z]+ [a-zA-Z]+$/;
+
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+            let comment = document.getElementById('comment').value;
+            const commentError = document.getElementById('commentError');
+
+            const subject = document.getElementById('subject').value;
+            const subjectError = document.getElementById('subjectError');
+
+            let isValid = true;
+
+            if (!fullnamePattern.test(fullname)) {
+                fullnameError.style.display = 'block';
+                fullnameError.style.color = 'red';
+                fullnameError.innerHTML = 'Please enter your full name (first & last name)!';
+                isValid = false;
+            } else {
+                fullnameError.innerHTML = 'Valid name given.';
+                fullnameError.style.color = 'green';
+            }
+
+            if (!emailPattern.test(email)) {
+                emailError.style.display = 'block';
+                emailError.style.color = 'red';
+                emailError.innerHTML = 'Please enter a valid email address!';
+                isValid = false;
+            } else {
+                emailError.innerHTML = 'Valid email given.';
+                emailError.style.color = 'green';
+            }
+
+            if (subject.length < 3) {
+                subjectError.style.display = 'block';
+                subjectError.style.color = 'red';
+                subjectError.innerHTML = 'Subject should contain a minimum of 3 letters!';
+                isValid = false;
+            } else {
+                subjectError.innerHTML = 'Valid subject.';
+                subjectError.style.color = 'green';
+            }
+
+            if (comment.length < 3 || comment.length > 15) {
+                commentError.style.display = 'block';
+                commentError.style.color = 'red';
+                commentError.innerHTML = 'Comment should contain between 3 and 15 characters!';
+                isValid = false;
+            } else {
+                commentError.innerHTML = 'Valid comment.';
+                commentError.style.color = 'green';
+            }
+
+            if (isValid) {
+                alert('Submitted Successfully');
+                window.location.reload();
+            } 
+        }
+    </script>
+</body>
+</html>
